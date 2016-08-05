@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['add.component.css']
 })
 export class AddComponent implements OnInit {
-
+  addTitle = "Working adding title";
   constructor() { }
 
   ngOnInit() {

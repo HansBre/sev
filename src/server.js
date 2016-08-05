@@ -75,6 +75,11 @@ app.post('/addDrink/', upload.single('avatar'), function (req, res, next) {
   response.sendStatus(404);
 });*/
 
+//Required for html5 pushstate
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname,'index.html'));
+});
+
 
 
 

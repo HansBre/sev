@@ -15,7 +15,6 @@ export class DrinksComponent implements OnInit {
   }
 
   navigateAdd(){
-    alert("navigate");
     this.router.navigate(['/add']);
   }
 
