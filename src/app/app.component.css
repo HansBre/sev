@@ -1,0 +1,14 @@
+header{
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  background-color: #3399ff;
+
+
+}
+
+header a{
+  color: white;
+  font-size: 200%;
+  font-family:helvetica;
+}
