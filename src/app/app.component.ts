@@ -15,6 +15,7 @@ export class AppComponent {
   }
 
   onHome(){
-    this.router.navigate(['drinks']);
+    alert("N");
+    this.router.navigate(['/drinks']);
   }
 }
