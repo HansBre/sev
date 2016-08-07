@@ -2,7 +2,7 @@
 
 var express = require('express');
 var app = express();
-//var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var path = require('path');
 var multer = require('multer');
 var upload = multer({dest:'uploads/',
@@ -21,11 +21,12 @@ var pool      =    mysql.createPool({
 
 app.use(express.static(__dirname));
 
-app.get('/*', function (req, res) {
+app.get('/', function (req, res) {
+  console.log("Sending index");
   res.sendFile(path.join(__dirname,'index.html'));
 });
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var ingredients  = ['Gin','Genever','Grog'];
 
@@ -74,6 +75,12 @@ app.post('/addDrink/', upload.single('avatar'), function (req, res, next) {
   //Respond with not found status code
   response.sendStatus(404);
 });*/
+
+//Required for html5 pushstate
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname,'index.html'));
+  console.log("Called last request function,intended?")
+});
 
 
 

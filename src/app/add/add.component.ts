@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {Drink,Ingredient,IngredientMeasure} from '../containers';
-import {DService} from '../services/d.service';
-import {MeasureComponent} from '../measure';
+import {DService} from '../d.service';
+import {IngredientMeasure} from '../classes';
 
 @Component({
   moduleId: module.id,

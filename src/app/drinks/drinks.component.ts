@@ -15,7 +15,6 @@ export class DrinksComponent implements OnInit {
   }
 
   navigateAdd(){
-    this.router.navigate['add'];
+    this.router.navigate(['/add']);
   }
-
 }
