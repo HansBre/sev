@@ -7,7 +7,15 @@ import { AddComponent } from './add.component';
 
 describe('Component: Add', () => {
   it('should create an instance', () => {
-    let component = new AddComponent();
+
+    let router;
+    let dservice;
+    beforeAll(()=>{
+      router = jasmine.createSpyObj('router',['nagivate']);
+      dservice = jasmine.createSpyObj('dservice',['']).and;
+    });
+
+    let component = new AddComponent(router,dservice);
     expect(component).toBeTruthy();
   });
 });
