@@ -39,6 +39,8 @@ const barrels: string[] = [
   'app/drinks',
   'app/add',
   'app/measure-input',
+  'app/measure',
+  'app/layout',
   /** @cli-barrel */
 ];
 

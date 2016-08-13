@@ -5,10 +5,14 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 var multer = require('multer');
-var upload = multer({dest:'uploads/',
-rename: function (fieldname, filename) {
-    return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
-  }});
+var storage = multer.diskStorage({
+  destination:__dirname+"/uploads/",
+  filename: (req, file, cb)=> {
+    console.log(req.body.name);
+    cb(null, req.body.name+".png");
+  }
+});
+var upload = multer({storage:storage});
 var mysql      = require('mysql');
 var pool      =    mysql.createPool({
     connectionLimit : 100, //importanta
@@ -18,17 +22,16 @@ var pool      =    mysql.createPool({
     database : 'db_sprit',
     debug    :  false
 });
-
-app.use(express.static(__dirname));
+var dist = __dirname+"/dist/";
+app.use(express.static(dist));
+app.use('/images', express.static(__dirname + '/uploads'));
 
 app.get('/', function (req, res) {
   console.log("Sending index");
-  res.sendFile(path.join(__dirname,'index.html'));
+  res.sendFile(path.join(dist,'index.html'));
 });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-var ingredients  = ['Gin','Genever','Grog'];
 
 app.get('/ingredients/:query', (request, response) => {
   var like = request.params.query;
@@ -44,7 +47,11 @@ app.get('/ingredients/:query', (request, response) => {
             connection.release();
             if(!err) {
                 console.log(rows);
-                var resArray = [rows[0].Name];
+                var resArray = new Array();
+                for(let item of rows){
+                  console.log(item.Name)
+                  resArray.push(item.Name);
+                }
                 response.json(resArray);
 
             }
@@ -60,25 +67,15 @@ app.get('/ingredients/:query', (request, response) => {
 app.post('/addDrink/', upload.single('avatar'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
-  console.log(req.body.ingredients);
-  console.log(req.file.filename);
-})
-
-/**app.post('/addDrink/', (request, response) => {
-  if(request.body){
-    console.log(request.body.ingredients);
-    response.sendStatus(200);
-    return;
-  }else{
-    console.log("Error");
-  }
-  //Respond with not found status code
-  response.sendStatus(404);
-});*/
+  let measure = req.body;
+  console.log(measure.iNames);
+  console.log(measure.iMeasures);
+  res.sendStatus(200);
+});
 
 //Required for html5 pushstate
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname,'index.html'));
+  res.sendFile(path.join(dist,'index.html'));
   console.log("Called last request function,intended?")
 });
 

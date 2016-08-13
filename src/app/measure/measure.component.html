@@ -1,0 +1,4 @@
+<div>{{nameInput}}</div>
+<select id="ingredient"(change)="onSelect($event.target.value)">
+  <option  *ngFor="let option of options">{{option}}</option>
+</select>

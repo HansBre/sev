@@ -2,9 +2,22 @@
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.10.
 
+## TODO
+* Save addDrink post to database
+* Create DrinkThumbnailComponent in which to display image and name. 
+* Clean up add component, make reset work properly on selection and add styling using flex.
+* Optimalize application using bootstrapping techniques. 
+* Performance testing
+
+## FUTURE FEATURES
+* Implement an option to update item descriptions and/or compositions.
+* Implement ninja drinks, (Feeling lucky, based on geographical and overall statistics)
+* Implement categories
+* Implement Authentication via Facebooks (Oauth2), add routeguards.
+
 ## node express.js server
 
-Run `nodemon dist/server.js` to launch the server. Navigate to `http://localhost:3000/`. 
+Run `server.js` to launch the server. Navigate to `http://localhost:3000/`. 
 
 ## Code scaffolding
 
