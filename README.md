@@ -1,6 +1,11 @@
 # Sev
+* A web application for mixed drinks built using Angular 2, express++ and MariaDB.
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.10.
+## FEATURES for V 1.0
+* Upload drinks, including image, ingredients and their measure and a description.
+* View selections of multiple drinks at a time.
+* Search for specific drinks by name.  
+* Search for drinks by Ingredients.
 
 ## TODO
 * Save addDrink post to database
@@ -10,10 +15,10 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 * Performance testing
 
 ## FUTURE FEATURES
-* Implement an option to update item descriptions and/or compositions.
+* Implement an option to update/create item descriptions and/or compositions.
 * Implement ninja drinks, (Feeling lucky, based on geographical and overall statistics)
-* Implement categories
-* Implement Authentication via Facebooks (Oauth2), add routeguards.
+* Implement categories view, for example shordrinks, *tinis long drinks etc.
+* Implement Authentication via Facebook (Oauth2).
 
 ## node express.js server
 
@@ -27,18 +32,6 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/). 
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Deploying to Github Pages
-
-Run `ng github-pages:deploy` to deploy to Github Pages.
 
 ## Further help
 
