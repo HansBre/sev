@@ -10,6 +10,7 @@ import {IngredientMeasure} from '../classes';
 export class MeasureComponent implements OnInit{
   @Input() nameInput;
   @Output('selection') measureSelection = new EventEmitter<IngredientMeasure>();
+  @Output('removal') measureRemoval = new EventEmitter<string>();
   options:string[];
   selected:string;
   test:string ="Test";
@@ -33,6 +34,13 @@ export class MeasureComponent implements OnInit{
     this.selected ="Measure";
     this.measure = new IngredientMeasure(this.nameInput);
     this.options = this.measure.options;
-    alert(this.measure.name);
+    this.measure.measure ="Dash";
+    this.measureSelection.emit(this.measure);
   }
+
+  removeIngredient(){
+    this.measureRemoval.emit(this.nameInput);
+  }
+
+
 }

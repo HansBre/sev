@@ -17,6 +17,7 @@ export class  AddComponent implements OnInit{
   //remove testString
   testString:string ="Tests";
   drinkName:string;
+  description:string;
   search:string;
   image:File;
   measureSelections:IngredientMeasure[]=[];
@@ -34,7 +35,12 @@ export class  AddComponent implements OnInit{
   }
 
   addIngredient(ingredient:string){
+    //Can't have the same ingredient in a drink more than once.
+    for(let item of this.added){
+      if(item == ingredient) return;
+    }
     this.added.push(ingredient);
+    this.search ="";
     console.log("Added "+ingredient+" to array.")
   }
 
@@ -50,24 +56,40 @@ export class  AddComponent implements OnInit{
 
   onChange(event){
     this.image = event.target.files[0];
-    alert("Called" + this.image.name);
+  }
+
+  onMeasureRemoval(event:string){
+    console.log("onMeasureRemoval called with "+event)
+    var i = 0;
+    for(i = 0;i<this.added.length;i++){
+      if(this.added[i]==event){
+        this.added.splice(i,1);
+      }
+    }
+    for(i = 0;i<this.measureSelections.length;i++){
+      if(this.measureSelections[i].name==event){
+        console.log("removing "+ this.measureSelections.splice(i,1));
+        return;
+      }
+    }
   }
 
   onEdidtMeasure(event:IngredientMeasure){
-    console.log("onEdidtMeasure fired as "+event.name+" with "+event.measure)
-    for(var item of this.measureSelections){
-      if(event.name == item.name && event.measure == item.measure){
-        console.log("Measure selection has not been updated");
-        return;
-      }else if(event.name == item.name){
-        item.measure = event.measure;
-        console.log("Measure selection has been updated with a new value");
-        return;
-      }
-    } if(this.measureSelections.length == 0){
-      console.log("Measure selection has been updated with an initial item");
+    console.log("onEdidtMeasure fired as "+event.name+" with "+event.measure);
+    if(this.measureSelections.length==0){
       this.measureSelections.push(event);
+      console.log("L80:first item");
+      return;
     }
+    for(var i=0;i<this.measureSelections.length;i++){
+      if(this.measureSelections[i].name == event.name){
+          this.measureSelections[i].measure == event.measure ? this.measureSelections[i] = this.measureSelections[i] : this.measureSelections[i] = event;
+          console.log("L86:Updating value on exising item, total of "+this.measureSelections.length+" in array");
+          return;
+      }
+    }
+    this.measureSelections.push(event);
+    console.log("L91:assuming this is a new item total of "+this.measureSelections.length+" in array");
   }
 
   onPost(){
@@ -86,9 +108,10 @@ export class  AddComponent implements OnInit{
         iNames.push(item.name);
         iMeasures.push(item.measure);
       }
-      console.log(iNames);
-      console.log(iMeasures);
+      console.log("names "+ iNames);
+      console.log("measures "+ iMeasures);
       formData.append("name",this.drinkName);
+      formData.append("description",this.description);
       formData.append("iNames",iNames);
       formData.append("iMeasures",iMeasures);
       formData.append("avatar",this.image,"image.jpg");

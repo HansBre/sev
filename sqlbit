@@ -1,0 +1,27 @@
+pool.getConnection((err,connection)=>{
+    connection.beginTransaction((err)=>{
+      if(err != null){
+        throw err;
+      }
+      connection.query('INSERT INTO Drinks VALUES (?,?,?)',[measure.description,measure.name,measure.name],(err,result)=>{
+        if(err){
+          handleSqlError(connection,err);
+        }
+        connection.commit((err)=>{
+          if(err){
+            handleSqlError(connection,err);
+          }
+        });
+      });
+      for(var i = 0;i<measure.iNames.length;i++){
+        connection.query('INSERT  INTO Components VALUES(?,?,?)',[measure.name,measure.iNames[i],measure.iMeasures[i]],(err,result)=>{
+          if(err){
+            handleSqlError(connection,err);
+          }
+          connection.commit((err)=>{
+            handleSqlError(connection,err);
+          });
+        });
+      }
+    });
+  });

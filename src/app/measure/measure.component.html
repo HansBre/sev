@@ -2,3 +2,4 @@
 <select id="ingredient"(change)="onSelect($event.target.value)">
   <option  *ngFor="let option of options">{{option}}</option>
 </select>
+<button (click)="removeIngredient()" >Remove ingredient</button>

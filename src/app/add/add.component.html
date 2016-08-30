@@ -1,6 +1,7 @@
 <div class="container">
   <label>Add Ingredient</label>
   <input type="text" [(ngModel)]="drinkName" placeholder="Navngi drink..."/>
+  <input type="text" [(ngModel)]="description" placeholder="Bekriv drink..."/>
   <input type="text" (keyup)="onTyped()" [(ngModel)]="search" placeholder="search"/>
   {{search}}
   <div *ngIf="search">
@@ -13,5 +14,5 @@
   <button (click)="onReset()">Reset</button>
   <button (click)="onPost()">Send form</button>
   <input [(ngModel)]="image" type="file" accept="image/*" capture="camera" name="avatar" (change)="onChange($event)"/>
-  <app-measure *ngFor="let addition of added" [nameInput]="addition" (selection)="onEdidtMeasure($event)"></app-measure>
+  <app-measure *ngFor="let addition of added" [nameInput]="addition" (removal)="onMeasureRemoval($event)" (selection)="onEdidtMeasure($event)"></app-measure>
 </div>

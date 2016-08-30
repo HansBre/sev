@@ -1,7 +1,8 @@
 'use strict'
-
+process.env.NODE_ENV = "production";
 var express = require('express');
 var app = express();
+var compression = require('compression');
 var bodyParser = require('body-parser');
 var path = require('path');
 var multer = require('multer');
@@ -23,6 +24,7 @@ var pool      =    mysql.createPool({
     debug    :  false
 });
 var dist = __dirname+"/dist/";
+app.use(compression());
 app.use(express.static(dist));
 app.use('/images', express.static(__dirname + '/uploads'));
 
@@ -68,9 +70,17 @@ app.post('/addDrink/', upload.single('avatar'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
   let measure = req.body;
+  console.log("L73");
   console.log(measure.iNames);
   console.log(measure.iMeasures);
   res.sendStatus(200);
+  pool.getConnection((connection,err)=>{
+    connection.beginTransaction();
+
+    connection.query('INSERT INTO Drinks VALUES()')
+  });
+
+
 });
 
 //Required for html5 pushstate
@@ -89,3 +99,9 @@ var server = app.listen(3000, () => {
 }).on('error',(err)=>{
   console.log(err);
 });
+
+function handleSqlError(conn,err){
+  return conn.rollback(()=>{
+    throw err;
+  });
+}
